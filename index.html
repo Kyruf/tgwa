@@ -417,7 +417,7 @@
             </div>
 
             <button class="action-btn" onclick="saveDetails()">Salva / Aggiorna</button>
-            <button class="action-btn btn-delete" onclick="deleteDetails()">Rimuoviti dalla lista</button>
+            <button class="btn-delete action-btn" onclick="deleteDetails()">Rimuoviti dalla lista</button>
         </div>
     </div>
 
@@ -573,22 +573,25 @@
 
         // Rimuove la voce dalla lista
         function deleteDetails() {
-            const name = document.getElementById('name-input').value.trim();
+    const name = document.getElementById('name-input').value.trim();
 
-            if (!name) {
-                alert("Inserisci il nome della voce che vuoi rimuovere!");
-                return;
-            }
+    if (!name) {
+        alert("Inserisci il nome della voce che vuoi rimuovere!");
+        return;
+    }
 
-            if (!checkRateLimit()) return;
+    // Chiede conferma all'utente prima di procedere
+    if (!confirm(`Sei sicuro di volerti rimuovere (${name}) dalla lista?`)) return;
 
-            database.ref('guests/' + name).remove().then(() => {
-                alert("Rimosso dalla lista!");
-                document.getElementById('time-input').value = '';
-                document.getElementById('note-input').value = '';
-                toggleForm(false);
-            });
-        }
+    if (!checkRateLimit()) return;
+
+    database.ref('guests/' + name).remove().then(() => {
+        alert("Rimosso dalla lista!");
+        document.getElementById('time-input').value = '';
+        document.getElementById('note-input').value = '';
+        toggleForm(false);
+    });
+}
 
         // Sincronizzazione lista partecipanti live
         database.ref('guests').on('value', (snapshot) => {
