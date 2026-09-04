@@ -21,33 +21,41 @@
             --border-color: #2a2a2a;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+        /* Previene lo scorrimento orizzontale su tutti i dispositivi */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* Contenitore stile Smartphone per PC */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Contenitore centrale stile Scheda Phone per PC, adattabile al 100% su Mobile */
         .main-container {
             width: 100%;
-            max-width: 420px;
-            padding: 0 16px 20px 16px;
+            max-width: 440px;
+            padding: 0 16px 24px 16px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Immagine a tutto schermo su Mobile e proporzionata nel box su PC */
+        /* Immagine adattiva senza sbandamenti laterali */
         .header-img {
-            width: 100vw;
-            max-width: 420px;
+            width: 100%;
             height: 180px;
             object-fit: cover;
+            border-radius: 0 0 12px 12px;
             margin-bottom: 16px;
             border-bottom: 3px solid var(--accent-color);
             box-shadow: 0 4px 15px rgba(135, 116, 225, 0.3);
@@ -56,7 +64,7 @@
         h1 {
             font-size: 1.8rem;
             font-weight: 800;
-            margin: 0 0 6px 0;
+            margin: 0 0 10px 0;
             text-align: center;
         }
 
@@ -80,11 +88,10 @@
         }
 
         .guest-count-header {
-            text-color:ff00f0;
             padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 0.95rem;
             color: var(--accent-color);
             display: flex;
             justify-content: space-between;
@@ -184,7 +191,7 @@
             font-family: inherit;
         }
 
-        /* Correzione icona dell'orologio su browser Webkit */
+        /* Icona dell'orologio su Webkit */
         input[type="time"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
             cursor: pointer;
@@ -242,9 +249,9 @@
 </head>
 <body>
 
-    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
-
     <div class="main-container">
+        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
+
         <h1>FLUO PARTY 03-10-26 🎉</h1>
         
         <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
@@ -279,7 +286,7 @@
             <h3>Aggiorna le tue info</h3>
             <input type="text" id="name-input" placeholder="Il tuo nome">
             
-            <span class="field-label">Orario di arrivo:</span>
+            <span class="field-label">Orario di arrivo (dalle 17:00 alle 01:59):</span>
             <input type="time" id="time-input">
             
             <input type="text" id="note-input" placeholder="Nota (es. intolleranze, astemio, vegano, celiaco)">
@@ -359,7 +366,7 @@
 
         // Verifica validità orario tra 17:00 e 01:59
         function isValidTime(timeStr) {
-            if (!timeStr) return true; // Se lasciato vuoto, è valido
+            if (!timeStr) return true;
 
             const parts = timeStr.replace('.', ':').split(':');
             if (parts.length < 2) return false;
@@ -372,8 +379,8 @@
             }
 
             const totalMinutes = hours * 60 + minutes;
-            const minAllowed = 17 * 60;        // 17:00 (1020 minuti)
-            const maxAllowed = 1 * 60 + 59;    // 01:59 (119 minuti)
+            const minAllowed = 17 * 60;        // 17:00
+            const maxAllowed = 1 * 60 + 59;    // 01:59
 
             return (totalMinutes >= minAllowed || totalMinutes <= maxAllowed);
         }
