@@ -26,10 +26,31 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px 16px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Contenitore stile Smartphone per PC */
+        .main-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 0 16px 20px 16px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* Immagine a tutto schermo su Mobile e proporzionata nel box su PC */
+        .header-img {
+            width: 100vw;
+            max-width: 420px;
+            height: 180px;
+            object-fit: cover;
+            margin-bottom: 16px;
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: 0 4px 15px rgba(135, 116, 225, 0.3);
         }
 
         h1 {
@@ -45,11 +66,11 @@
             text-align: center;
             margin-bottom: 12px;
             line-height: 1.4;
+            width: 100%;
         }
 
         .list-container {
             width: 100%;
-            max-width: 400px;
             background-color: var(--card-bg);
             border-radius: 14px;
             padding: 8px 16px;
@@ -118,7 +139,6 @@
 
         .edit-section {
             width: 100%;
-            max-width: 400px;
             margin-top: 16px;
             background-color: var(--card-bg);
             border-radius: 14px;
@@ -196,33 +216,36 @@
 </head>
 <body>
 
-    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" alt="fluo">
-    <h1>FLUO PARTY 03-10-26 🎉</h1>
-    
-    <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
+    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
 
-    <div class="description">Ovviamente sarà incluso un aperitivo (penso spritz e cocktail, da decidere assieme) con spuntino (bo tipo pizze in teglia, tramezzini col tonno, torte salate, crostata), il tutto mentre gli ossetti (ribs con senape, spezie e salsa barbecue) cuociono per 3 ore circa. Prenderò anche polenta, pancetta, salsicce, wurstel. Infine sarà servito un tiramisù senza lattosio, con cioccolato bianco e savoiardi alla fragola.</div>
+    <div class="main-container">
+        <h1>FLUO PARTY 03-10-26 🎉</h1>
+        
+        <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
 
-    <div class="description">Forse ci saranno verdure (molto buone, dell'orto), ma non cucinate da me (non ne sono in grado), eventualmente se proprio avete bisogno di mangiarle scrivetelo nelle note qui sotto. Se volete potete addirittura cucinarle voi senza problemi. Scrivete anche eventuali intolleranze o allergie, se non bevete alcolici perché così so quante bevande analcoliche prendere. Scrivete nelle note QUALSIASI preferenza e un orario di arrivo indicativo. Potrete sempre modificarlo dopo (ma per favore entro il 1/10 (primo di ottobre) perché la spesa la farò il 2.</div>
+        <div class="description">Ovviamente sarà incluso un aperitivo (penso spritz e cocktail, da decidere assieme) con spuntino (bo tipo pizze in teglia, tramezzini col tonno, torte salate, crostata), il tutto mentre gli ossetti (ribs con senape, spezie e salsa barbecue) cuociono per 3 ore circa. Prenderò anche polenta, pancetta, salsicce, wurstel. Infine sarà servito un tiramisù senza lattosio, con cioccolato bianco e savoiardi alla fragola.</div>
 
-    <div class="description">Ho preso qualche decorazione con luci UV, pennarelli colori neon accesi e scotch colorato. Ovviamente potete venire vestiti come cazzo volete, sappiate che però coi vestiti bianchi sarete MOLTO visibili. Se invece volete fare il giro sotto al tavolo di nascosto, potete vestirvi di nero.</div>
+        <div class="description">Forse ci saranno verdure (molto buone, dell'orto), ma non cucinate da me (non ne sono in grado), eventualmente se proprio avete bisogno di mangiarle scrivetelo nelle note qui sotto. Se volete potete addirittura cucinarle voi senza problemi. Scrivete anche eventuali intolleranze o allergie, se non bevete alcolici perché così so quante bevande analcoliche prendere. Scrivete nelle note QUALSIASI preferenza e un orario di arrivo indicativo. Potrete sempre modificarlo dopo (ma per favore entro il 1/10 (primo di ottobre) perché la spesa la farò il 2.</div>
 
-    <div class="description">Non so il meteo come sarà, comunque saremo sicuramente al coperto sotto alla veranda mezza chiusa del garage. In caso di freddo ci sono varie stufe, ma sarà più probabile il contrario.</div>
+        <div class="description">Ho preso qualche decorazione con luci UV, pennarelli colori neon accesi e scotch colorato. Ovviamente potete venire vestiti come cazzo volete, sappiate che però coi vestiti bianchi sarete MOLTO visibili. Se invece volete fare il giro sotto al tavolo di nascosto, potete vestirvi di nero.</div>
 
-    <div class="description">Potete portare tutte le morose o fidanzati che avete, se volete anche bambini, sappiate però che ci sarà musica a volume medio-alto con le casse grandi (aggiungeteli nella lista come una voce a parte).</div>
+        <div class="description">Non so il meteo come sarà, comunque saremo sicuramente al coperto sotto alla veranda mezza chiusa del garage. In caso di freddo ci sono varie stufe, ma sarà più probabile il contrario.</div>
 
-    <div class="description">Per chi vuole ci sono carte, giochi da tavolo, beerpong goa (grazie al gioco di luci e colori) e il nano che fa tatuaggi gratis se lo convincete.</div>
+        <div class="description">Potete portare tutte le morose o fidanzati che avete, se volete anche bambini, sappiate però che ci sarà musica a volume medio-alto con le casse grandi (aggiungeteli nella lista come una voce a parte).</div>
 
-    <div class="description">Ultima nota e poi vi lascio votare, per chi non è mai venuto, c'è parcheggio in abbondanza quindi potete pure parcheggiare una decina di auto dentro il giardino e tutte le altre appena fuori sul campo.</div>
+        <div class="description">Per chi vuole ci sono carte, giochi da tavolo, beerpong goa (grazie al gioco di luci e colori) e il nano che fa tatuaggi gratis se lo convincete.</div>
 
-    <!-- Lista Partecipanti -->
-    <div class="list-container" id="guest-list">
-        <div style="text-align:center; color:#aaa; padding:10px;">Caricamento partecipanti...</div>
-    </div>
+        <div class="description">Ultima nota e poi vi lascio votare, per chi non è mai venuto, c'è parcheggio in abbondanza quindi potete pure parcheggiare una decina di auto dentro il giardino e tutte le altre appena fuori sul campo.</div>
 
-    <!-- Modulo di registrazione / modifica -->
-    <div class="edit-section">
-        <h3>Per modificare/cancellare la vostra voce, scrivete il vostro nome!! Controllate bene prima di modificare, 2 modiche ogni 24 ore. Si lo so che potete modificare le altre voci, l'ho messa apposta per le morose, spero che Salvatore non ne abusi di sta cosa.</h3>
+        <!-- Lista Partecipanti -->
+        <div class="list-container" id="guest-list">
+            <div style="text-align:center; color:#aaa; padding:10px;">Caricamento partecipanti...</div>
+        </div>
+
+        <!-- Modulo di registrazione / modifica -->
+      <div class="edit-section">
+        <h3>Per modificare/cancellare la vostra voce, scrivete il vostro nome!! Controllate bene prima di modificare, 2 modiche ogni 24 ore.</h3>
+          <h3>Si lo so che potete modificare le altre voci, l'ho messa apposta per le morose, se verrete cancellati la colpa ricadrà tutta su Salvatore Ceraudo.</h3>
         <input type="text" id="name-input" placeholder="Il tuo nome">
         <input type="text" id="time-input" placeholder="Orario di arrivo (es. 17.00, 20.00, dopo cena)">
         <input type="text" id="note-input" placeholder="Nota (es. intolleranze, astemio, vegano, celiaco)">
@@ -257,6 +280,9 @@
         <button onclick="deleteDetails()" class="btn-delete">Rimuoviti dalla lista (scrivi il tuo nome e poi premi questo tasto)</button>
     </div>
 
+
+
+        
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
