@@ -115,7 +115,13 @@
             gap: 6px;
             border-radius: 8px;
             margin: 6px 0;
-            transition: background-color 0.3s ease;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .guest-card:hover {
+            background-color: #282828;
         }
 
         .guest-card:last-child { border-bottom: none; }
@@ -124,6 +130,10 @@
         .guest-card.maybe {
             background-color: var(--maybe-bg);
             border: 1px solid var(--maybe-border);
+        }
+
+        .guest-card.maybe:hover {
+            background-color: #4a400f;
         }
 
         .guest-header {
@@ -189,14 +199,55 @@
             color: #fff9c4;
         }
 
-        .edit-section {
+        /* Tasto Modifica che appare sulla card selezionata */
+        .edit-btn-card {
+            display: none;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .guest-card.selected .edit-btn-card {
+            display: block;
+        }
+
+        .btn-add-toggle {
             width: 100%;
             margin-top: 16px;
+            padding: 14px;
+            background-color: #2e7d32;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+        }
+
+        .btn-add-toggle:active {
+            background-color: #1b5e20;
+        }
+
+        .edit-section {
+            width: 100%;
+            margin-top: 12px;
             background-color: var(--card-bg);
             border-radius: 14px;
             padding: 14px;
             box-sizing: border-box;
             border: 1px solid var(--border-color);
+            display: none; /* Nascosto di default */
+        }
+
+        .edit-section.visible {
+            display: block;
         }
 
         .edit-section h3 {
@@ -261,7 +312,7 @@
             gap: 4px;
         }
 
-        button {
+        button.action-btn {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
@@ -277,7 +328,7 @@
             margin-top: 8px;
         }
 
-        button:active {
+        button.action-btn:active {
             opacity: 0.8;
         }
     </style>
@@ -316,8 +367,11 @@
             </div>
         </div>
 
+        <!-- Tasto per mostrare il Form -->
+        <button class="btn-add-toggle" onclick="toggleForm()">+ Aggiungi / Modifica Partecipante</button>
+
         <!-- Modulo di registrazione / modifica -->
-        <div class="edit-section">
+        <div class="edit-section" id="form-section">
             <h3>Per modificare/cancellare la vostra voce, scrivete il vostro nome!! Controllate bene prima di modificare, 2 modifiche ogni 24 ore.</h3>
             <h3>Si lo so che potete modificare le altre voci, l'ho messa apposta per le morose, se verrete cancellati la colpa ricadrà tutta su Salvatore Ceraudo.</h3>
             
@@ -362,8 +416,8 @@
                 </div>
             </div>
 
-            <button onclick="saveDetails()">Salva / Aggiorna</button>
-            <button onclick="deleteDetails()" class="btn-delete">Rimuoviti dalla lista (scrivi il tuo nome e poi premi questo tasto)</button>
+            <button class="action-btn" onclick="saveDetails()">Salva / Aggiorna</button>
+            <button class="action-btn btn-delete" onclick="deleteDetails()">Rimuoviti dalla lista</button>
         </div>
     </div>
 
@@ -385,9 +439,59 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
+        let cachedGuests = {};
+
         // Autocompila con il nome utente di Telegram
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             document.getElementById('name-input').value = tg.initDataUnsafe.user.first_name;
+        }
+
+        // Mostra / Nascondi Form
+        function toggleForm(show = null) {
+            const formSection = document.getElementById('form-section');
+            if (show === true) {
+                formSection.classList.add('visible');
+            } else if (show === false) {
+                formSection.classList.remove('visible');
+            } else {
+                formSection.classList.toggle('visible');
+            }
+
+            if (formSection.classList.contains('visible')) {
+                formSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Seleziona un utente e carica i suoi dati nel form
+        function selectGuest(name) {
+            const guest = cachedGuests[name];
+            if (!guest) return;
+
+            document.getElementById('name-input').value = name;
+            document.getElementById('time-input').value = guest.time === 'Da definire' ? '' : guest.time;
+            document.getElementById('note-input').value = guest.note || '';
+
+            setRadioValue('presence', guest.presence || 'Si');
+            setRadioValue('ape', guest.ape || 'Si');
+            setRadioValue('cena', guest.cena || 'Si');
+            setRadioValue('alcol', guest.alcol || 'Si');
+
+            toggleForm(true);
+        }
+
+        function setRadioValue(name, value) {
+            const radios = document.getElementsByName(name);
+            for (let radio of radios) {
+                radio.checked = (radio.value === value);
+            }
+        }
+
+        function getRadioValue(name) {
+            const radios = document.getElementsByName(name);
+            for (let radio of radios) {
+                if (radio.checked) return radio.value;
+            }
+            return "No";
         }
 
         // Timer di sicurezza (max 2 modifiche ogni 24 ore)
@@ -430,14 +534,6 @@
             return (totalMinutes >= minAllowed || totalMinutes <= maxAllowed);
         }
 
-        function getRadioValue(name) {
-            const radios = document.getElementsByName(name);
-            for (let radio of radios) {
-                if (radio.checked) return radio.value;
-            }
-            return "No";
-        }
-
         // Salva o aggiorna i dati sul Realtime Database
         function saveDetails() {
             const name = document.getElementById('name-input').value.trim();
@@ -471,6 +567,7 @@
                 alcol: alcol
             }).then(() => {
                 alert("Dati salvati con successo!");
+                toggleForm(false);
             });
         }
 
@@ -489,6 +586,7 @@
                 alert("Rimosso dalla lista!");
                 document.getElementById('time-input').value = '';
                 document.getElementById('note-input').value = '';
+                toggleForm(false);
             });
         }
 
@@ -498,6 +596,7 @@
             const countSpan = document.getElementById('guest-count');
             listContainer.innerHTML = '';
             const data = snapshot.val();
+            cachedGuests = data || {};
 
             if (!data) {
                 countSpan.innerText = '0 confermati';
@@ -521,7 +620,14 @@
                 const card = document.createElement('div');
                 card.className = `guest-card ${isMaybe ? 'maybe' : ''}`;
                 
+                // Cliccando sulla card si seleziona e apre il tasto modifica
+                card.onclick = (e) => {
+                    document.querySelectorAll('.guest-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                };
+
                 card.innerHTML = `
+                    <div class="edit-btn-card" onclick="selectGuest('${name.replace(/'/g, "\\'")}')">✏️ Modifica ${name}</div>
                     <div class="guest-header">
                         <span class="guest-name">${name} ${isMaybe ? '❓' : ''}</span>
                         <span class="time-badge">${guest.time}</span>
