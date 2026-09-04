@@ -14,7 +14,7 @@
 <style>
     :root {
         --bg-color: #0f0f0f;
-        --card-bg: rgba(30, 30, 30, 0.85); /* Trasparenza per i riquadri */
+        --card-bg: rgba(30, 30, 30, 0.85);
         --text-color: #ffffff;
         --accent-color: #8774e1;
         --subtext-color: #dddddd;
@@ -36,41 +36,49 @@
 
     body {
         display: flex;
-        justify-content: center;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
         min-height: 100vh;
-        /* IMAGINE DI SFONDO: Sostituisci il link qui sotto */
-        background: url('https://raw.githubusercontent.com/Kyruf/tgwa/main/t3.png') no-repeat center center fixed;
+        /* SFONDO BG.PNG */
+        background: url('https://raw.githubusercontent.com/Kyruf/tgwa/main/bg.png') no-repeat center center fixed;
         background-size: cover;
+    }
+
+    /* Immagine Header in alto fuori dal riquadro */
+    .top-header-img {
+        width: 100%;
+        max-width: 440px; /* Stessa larghezza massima per desktop */
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        border: none;
     }
 
     .main-container {
         width: 100%;
         max-width: 440px;
-        padding: 0 16px 24px 16px;
+        padding: 16px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    /* Immagine responsive 100% senza bordo */
-    .header-img {
+    /* Immagini interne al riquadro (t1, t2, t3) */
+    .content-img {
         width: 100%;
         height: auto;
         display: block;
-        margin-bottom: 16px;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
+        margin: 16px 0;
+        border-radius: 12px;
     }
 
     /* Riquadro trasparente per il testo descrittivo */
     .info-card {
         background-color: var(--card-bg);
-        border-radius: 20px; /* Angoli affusolati */
+        border-radius: 20px;
         padding: 20px 16px;
-        backdrop-filter: blur(8px); /* Effetto sfocato sfondo */
+        backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         border: 1px solid var(--border-color);
         margin-bottom: 16px;
@@ -97,7 +105,7 @@
     .list-container {
         width: 100%;
         background-color: var(--card-bg);
-        border-radius: 20px; /* Angoli affusolati */
+        border-radius: 20px;
         padding: 8px 16px;
         box-sizing: border-box;
         border: 1px solid var(--border-color);
@@ -237,12 +245,11 @@
         transition: background-color 0.2s;
     }
 
-    /* Riquadro trasparente per il modulo di risposta */
     .edit-section {
         width: 100%;
         margin-top: 12px;
         background-color: var(--card-bg);
-        border-radius: 20px; /* Angoli affusolati */
+        border-radius: 20px;
         padding: 16px;
         box-sizing: border-box;
         border: 1px solid var(--border-color);
@@ -335,35 +342,39 @@
 </head>
 <body>
 
+    <!-- Header 100% larghezza fuori dai riquadri -->
+    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="top-header-img" alt="fluo header">
+
     <div class="main-container">
-        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
-<div class="info-card">
-        <h1>FLUO PARTY 03-10-26 🎉</h1>
-
-        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t1.png" class="header-img" alt="fluo">
         
-        <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
+        <!-- Riquadro 1: Informazioni e immagini t1, t2, t3 -->
+        <div class="info-card">
+            <h1>FLUO PARTY 03-10-26 🎉</h1>
 
-        <div class="description">Ovviamente sarà incluso un aperitivo (penso spritz e cocktail, da decidere assieme) con spuntino (bo tipo pizze in teglia, tramezzini col tonno, torte salate, crostata), il tutto mentre gli ossetti (ribs con senape, spezie e salsa barbecue) cuociono per 3 ore circa. Prenderò anche polenta, pancetta, salsicce, wurstel. Infine sarà servito un tiramisù senza lattosio, con cioccolato bianco e savoiardi alla fragola.</div>
+            <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t1.png" class="content-img" alt="fluo t1">
+            
+            <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
 
-        <div class="description">Forse ci saranno verdure (molto buone, dell'orto), ma non cucinate da me (non ne sono in grado), eventualmente se proprio avete bisogno di mangiarle scrivetelo nelle note qui sotto. Se volete potete addirittura cucinarle voi senza problemi. Scrivete anche eventuali intolleranze o allergie, se non bevete alcolici perché così so quante bevande analcoliche prendere. Scrivete nelle note QUALSIASI preferenza e un orario di arrivo indicativo. Potrete sempre modificarlo dopo (ma per favore entro il 1/10 (primo di ottobre) perché la spesa la farò il 2.</div>
+            <div class="description">Ovviamente sarà incluso un aperitivo (penso spritz e cocktail, da decidere assieme) con spuntino (bo tipo pizze in teglia, tramezzini col tonno, torte salate, crostata), il tutto mentre gli ossetti (ribs con senape, spezie e salsa barbecue) cuociono per 3 ore circa. Prenderò anche polenta, pancetta, salsicce, wurstel. Infine sarà servito un tiramisù senza lattosio, con cioccolato bianco e savoiardi alla fragola.</div>
 
-        <div class="description">Ho preso qualche decorazione con luci UV, pennarelli colori neon accesi e scotch colorato. Ovviamente potete venire vestiti come cazzo volete, sappiate che però coi vestiti bianchi sarete MOLTO visibili. Se invece volete fare il giro sotto al tavolo di nascosto, potete vestirvi di nero.</div>
+            <div class="description">Forse ci saranno verdure (molto buone, dell'orto), ma non cucinate da me (non ne sono in grado), eventualmente se proprio avete bisogno di mangiarle scrivetelo nelle note qui sotto. Se volete potete addirittura cucinarle voi senza problemi. Scrivete anche eventuali intolleranze o allergie, se non bevete alcolici perché così so quante bevande analcoliche prendere. Scrivete nelle note QUALSIASI preferenza e un orario di arrivo indicativo. Potrete sempre modificarlo dopo (ma per favore entro il 1/10 (primo di ottobre) perché la spesa la farò il 2.</div>
 
-        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t2.png" class="header-img" alt="fluo">
-        
-        <div class="description">Non so il meteo come sarà, comunque saremo sicuramente al coperto sotto alla veranda mezza chiusa del garage. In caso di freddo ci sono varie stufe, ma sarà più probabile il contrario.</div>
+            <div class="description">Ho preso qualche decorazione con luci UV, pennarelli colori neon accesi e scotch colorato. Ovviamente potete venire vestiti come cazzo volete, sappiate che però coi vestiti bianchi sarete MOLTO visibili. Se invece volete fare il giro sotto al tavolo di nascosto, potete vestirvi di nero.</div>
 
-        <div class="description">Potete portare tutte le morose o fidanzati che avete, se volete anche bambini, sappiate però che ci sarà musica a volume medio-alto con le casse grandi (aggiungeteli nella lista come una voce a parte).</div>
+            <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t2.png" class="content-img" alt="fluo t2">
+            
+            <div class="description">Non so il meteo come sarà, comunque saremo sicuramente al coperto sotto alla veranda mezza chiusa del garage. In caso di freddo ci sono varie stufe, ma sarà più probabile il contrario.</div>
 
-        <div class="description">Per chi vuole ci sono carte, giochi da tavolo, beerpong goa (grazie al gioco di luci e colori) e il nano che fa tatuaggi gratis se lo convincete.</div>
+            <div class="description">Potete portare tutte le morose o fidanzati che avete, se volete anche bambini, sappiate però che ci sarà musica a volume medio-alto con le casse grandi (aggiungeteli nella lista come una voce a parte).</div>
 
-        <div class="description">Ultima nota e poi vi lascio votare, per chi non è mai venuto, c'è parcheggio in abbondanza quindi potete pure parcheggiare una decina di auto dentro il giardino e tutte le altre appena fuori sul campo.</div>
-        
-        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t3.png" class="header-img" alt="fluo">
-</div></div>
+            <div class="description">Per chi vuole ci sono carte, giochi da tavolo, beerpong goa (grazie al gioco di luci e colori) e il nano che fa tatuaggi gratis se lo convincete.</div>
 
-        <!-- Lista Partecipanti -->
+            <div class="description">Ultima nota e poi vi lascio votare, per chi non è mai venuto, c'è parcheggio in abbondanza quindi potete pure parcheggiare una decina di auto dentro il giardino e tutte le altre appena fuori sul campo.</div>
+            
+            <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t3.png" class="content-img" alt="fluo t3">
+        </div>
+
+        <!-- Riquadro 2: Lista Partecipanti -->
         <div class="list-container">
             <div class="guest-count-header">
                 <span>Partecipanti:</span>
@@ -377,7 +388,7 @@
         <!-- Tasto per mostrare il Form -->
         <button class="btn-add-toggle" onclick="toggleForm()">+ Aggiungi partecipante</button>
 
-        <!-- Modulo di registrazione / modifica -->
+        <!-- Riquadro 3: Modulo di registrazione / modifica -->
         <div class="edit-section" id="form-section">
             <h3>Controllate bene prima di modificare, 2 modifiche ogni 24 ore.</h3>
             <h3>Si lo so che potete modificare le altre voci, l'ho messa apposta per le morose, se verrete cancellati la colpa ricadrà tutta su Salvatore.</h3>
@@ -580,25 +591,24 @@
 
         // Rimuove la voce dalla lista
         function deleteDetails() {
-    const name = document.getElementById('name-input').value.trim();
+            const name = document.getElementById('name-input').value.trim();
 
-    if (!name) {
-        alert("Inserisci il nome della voce che vuoi rimuovere!");
-        return;
-    }
+            if (!name) {
+                alert("Inserisci il nome della voce che vuoi rimuovere!");
+                return;
+            }
 
-    // Chiede conferma all'utente prima di procedere
-    if (!confirm(`Sei sicuro di volerti rimuovere (${name}) dalla lista?`)) return;
+            if (!confirm(`Sei sicuro di volerti rimuovere (${name}) dalla lista?`)) return;
 
-    if (!checkRateLimit()) return;
+            if (!checkRateLimit()) return;
 
-    database.ref('guests/' + name).remove().then(() => {
-        alert("Rimosso dalla lista!");
-        document.getElementById('time-input').value = '';
-        document.getElementById('note-input').value = '';
-        toggleForm(false);
-    });
-}
+            database.ref('guests/' + name).remove().then(() => {
+                alert("Rimosso dalla lista!");
+                document.getElementById('time-input').value = '';
+                document.getElementById('note-input').value = '';
+                toggleForm(false);
+            });
+        }
 
         // Sincronizzazione lista partecipanti live
         database.ref('guests').on('value', (snapshot) => {
@@ -630,10 +640,9 @@
                 const card = document.createElement('div');
                 card.className = `guest-card ${isMaybe ? 'maybe' : ''}`;
                 
-                // Cliccando sulla card si seleziona e apre il tasto modifica
                 card.onclick = (e) => {
-                const isSelected = card.classList.contains('selected');
-                document.querySelectorAll('.guest-card').forEach(c => c.classList.remove('selected'));
+                    const isSelected = card.classList.contains('selected');
+                    document.querySelectorAll('.guest-card').forEach(c => c.classList.remove('selected'));
                     if (!isSelected) {
                         card.classList.add('selected');
                     }
@@ -656,7 +665,6 @@
                 listContainer.appendChild(card);
             }
 
-            // Aggiorna contatore
             if (maybeCount > 0) {
                 countSpan.innerText = `${confirmedCount} confermati, ${maybeCount} forse`;
             } else {
