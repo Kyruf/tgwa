@@ -32,16 +32,6 @@
             align-items: center;
         }
 
-        .header-img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 12px;
-            border: 3px solid var(--accent-color);
-            box-shadow: 0 4px 15px rgba(135, 116, 225, 0.3);
-        }
-
         h1 {
             font-size: 1.8rem;
             font-weight: 800;
@@ -206,7 +196,7 @@
 </head>
 <body>
 
-    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
+    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" alt="fluo">
     <h1>FLUO PARTY 03-10-26 🎉</h1>
     
     <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
@@ -232,7 +222,7 @@
 
     <!-- Modulo di registrazione / modifica -->
     <div class="edit-section">
-        <h3>Aggiorna le tue info</h3>
+        <h3>Per modificare/cancellare la vostra voce, scrivete il vostro nome!! Controllate bene prima di modificare, 2 modiche ogni 24 ore. Si lo so che potete modificare le altre voci, l'ho messa apposta per le morose, spero che Salvatore non ne abusi di sta cosa.</h3>
         <input type="text" id="name-input" placeholder="Il tuo nome">
         <input type="text" id="time-input" placeholder="Orario di arrivo (es. 17.00, 20.00, dopo cena)">
         <input type="text" id="note-input" placeholder="Nota (es. intolleranze, astemio, vegano, celiaco)">
@@ -255,7 +245,7 @@
             </div>
 
             <div class="poll-option-row">
-                <span>Bevande Alcoliche:</span>
+                <span>Alcolici:</span>
                 <div class="radio-group">
                     <label><input type="radio" name="alcol" value="Si" checked> Sì</label>
                     <label><input type="radio" name="alcol" value="No"> No</label>
@@ -264,7 +254,7 @@
         </div>
 
         <button onclick="saveDetails()">Salva / Aggiorna</button>
-        <button onclick="deleteDetails()" class="btn-delete">Rimuoviti dalla lista</button>
+        <button onclick="deleteDetails()" class="btn-delete">Rimuoviti dalla lista (scrivi il tuo nome e poi premi questo tasto)</button>
     </div>
 
     <script>
