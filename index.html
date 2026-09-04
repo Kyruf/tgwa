@@ -11,334 +11,336 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
-    <style>
-        :root {
-            --bg-color: #0f0f0f;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --accent-color: #8774e1;
-            --subtext-color: #aaaaaa;
-            --border-color: #2a2a2a;
-            --green-color: #4caf50;
-            --maybe-bg: #38300b;
-            --maybe-border: #fbc02d;
-            --maybe-text: #fff176;
-        }
+<style>
+    :root {
+        --bg-color: #0f0f0f;
+        --card-bg: rgba(30, 30, 30, 0.85); /* Trasparenza per i riquadri */
+        --text-color: #ffffff;
+        --accent-color: #8774e1;
+        --subtext-color: #dddddd;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --green-color: #4caf50;
+        --maybe-bg: rgba(56, 48, 11, 0.85);
+        --maybe-border: #fbc02d;
+        --maybe-text: #fff176;
+    }
 
-        /* Previene lo scorrimento orizzontale su tutti i dispositivi */
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        /* IMAGINE DI SFONDO: Sostituisci il link qui sotto */
+        background: url('https://raw.githubusercontent.com/Kyruf/tgwa/main/t3.png') no-repeat center center fixed;
+        background-size: cover;
+    }
 
-        /* Contenitore centrale stile Scheda Phone per PC, adattabile al 100% su Mobile */
-        .main-container {
-            width: 100%;
-            max-width: 440px;
-            padding: 0 16px 24px 16px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .main-container {
+        width: 100%;
+        max-width: 440px;
+        padding: 0 16px 24px 16px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        /* Immagine adattiva senza sbandamenti laterali */
-        .header-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 0 0 12px 12px;
-            margin-bottom: 16px;
-            border-bottom: 3px solid var(--accent-color);
-            box-shadow: 0 4px 15px rgba(135, 116, 225, 0.3);
-        }
+    /* Immagine responsive 100% senza bordo */
+    .header-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-bottom: 16px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
 
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin: 0 0 10px 0;
-            text-align: center;
-        }
+    /* Riquadro trasparente per il testo descrittivo */
+    .info-card {
+        background-color: var(--card-bg);
+        border-radius: 20px; /* Angoli affusolati */
+        padding: 20px 16px;
+        backdrop-filter: blur(8px); /* Effetto sfocato sfondo */
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid var(--border-color);
+        margin-bottom: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
 
-        .description {
-            color: var(--subtext-color);
-            font-size: 0.9rem;
-            text-align: center;
-            margin-bottom: 12px;
-            line-height: 1.4;
-            width: 100%;
-        }
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin: 0 0 14px 0;
+        text-align: center;
+    }
 
-        .list-container {
-            width: 100%;
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 8px 16px;
-            box-sizing: border-box;
-            border: 1px solid var(--border-color);
-            margin-top: 10px;
-        }
+    .description {
+        color: var(--subtext-color);
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 12px;
+        line-height: 1.45;
+        width: 100%;
+    }
 
-        .guest-count-header {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .list-container {
+        width: 100%;
+        background-color: var(--card-bg);
+        border-radius: 20px; /* Angoli affusolati */
+        padding: 8px 16px;
+        box-sizing: border-box;
+        border: 1px solid var(--border-color);
+        margin-top: 10px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
 
-        .count-green {
-            color: var(--green-color);
-            font-weight: bold;
-        }
+    .guest-count-header {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .guest-card {
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            border-radius: 8px;
-            margin: 6px 0;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            position: relative;
-        }
+    .count-green {
+        color: var(--green-color);
+        font-weight: bold;
+    }
 
-        .guest-card:hover {
-            background-color: #282828;
-        }
+    .guest-card {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        border-radius: 12px;
+        margin: 6px 0;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
 
-        .guest-card:last-child { border-bottom: none; }
+    .guest-card:hover {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
 
-        /* Stile speciale per lo stato "FORSE" (Giallo) */
-        .guest-card.maybe {
-            background-color: var(--maybe-bg);
-            border: 1px solid var(--maybe-border);
-        }
+    .guest-card:last-child { border-bottom: none; }
 
-        .guest-card.maybe:hover {
-            background-color: #4a400f;
-        }
+    .guest-card.maybe {
+        background-color: var(--maybe-bg);
+        border: 1px solid var(--maybe-border);
+    }
 
-        .guest-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .guest-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .guest-name { font-weight: 600; }
+    .guest-name { font-weight: 600; }
 
-        .time-badge {
-            background-color: rgba(135, 116, 225, 0.2);
-            color: var(--accent-color);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
+    .time-badge {
+        background-color: rgba(135, 116, 225, 0.3);
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
 
-        .maybe .time-badge {
-            background-color: rgba(251, 192, 45, 0.2);
-            color: var(--maybe-text);
-        }
+    .maybe .time-badge {
+        background-color: rgba(251, 192, 45, 0.3);
+        color: var(--maybe-text);
+    }
 
-        .options-badges {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 2px;
-        }
+    .options-badges {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 2px;
+    }
 
-        .tag {
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 6px;
-            background-color: #2a2a2a;
-            color: #ccc;
-        }
+    .tag {
+        font-size: 0.75rem;
+        padding: 2px 6px;
+        border-radius: 6px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #ccc;
+    }
 
-        .tag.yes {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #81c784;
-        }
+    .tag.yes {
+        background-color: rgba(76, 175, 80, 0.3);
+        color: #a5d6a7;
+    }
 
-        .tag.no {
-            background-color: rgba(244, 67, 54, 0.2);
-            color: #e57373;
-        }
+    .tag.no {
+        background-color: rgba(244, 67, 54, 0.3);
+        color: #ef9a9a;
+    }
 
-        .tag.maybe-tag {
-            background-color: rgba(251, 192, 45, 0.2);
-            color: var(--maybe-text);
-            font-weight: bold;
-        }
+    .tag.maybe-tag {
+        background-color: rgba(251, 192, 45, 0.3);
+        color: var(--maybe-text);
+        font-weight: bold;
+    }
 
-        .guest-note {
-            font-size: 0.85rem;
-            color: var(--subtext-color);
-            font-style: italic;
-        }
+    .guest-note {
+        font-size: 0.85rem;
+        color: var(--subtext-color);
+        font-style: italic;
+    }
 
-        .maybe .guest-note {
-            color: #fff9c4;
-        }
+    .edit-btn-card {
+        display: none;
+        background-color: var(--accent-color);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 4px;
+        text-align: center;
+    }
 
-        /* Tasto Modifica che appare sulla card selezionata */
-        .edit-btn-card {
-            display: none;
-            background-color: var(--accent-color);
-            color: #fff;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 4px;
-            text-align: center;
-        }
+    .guest-card.selected .edit-btn-card {
+        display: block;
+    }
 
-        .guest-card.selected .edit-btn-card {
-            display: block;
-        }
+    .btn-add-toggle {
+        width: 100%;
+        margin-top: 16px;
+        padding: 14px;
+        background-color: #2e7d32;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 16px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: background-color 0.2s;
+    }
 
-        .btn-add-toggle {
-            width: 100%;
-            margin-top: 16px;
-            padding: 14px;
-            background-color: #2e7d32;
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: background-color 0.2s;
-        }
+    /* Riquadro trasparente per il modulo di risposta */
+    .edit-section {
+        width: 100%;
+        margin-top: 12px;
+        background-color: var(--card-bg);
+        border-radius: 20px; /* Angoli affusolati */
+        padding: 16px;
+        box-sizing: border-box;
+        border: 1px solid var(--border-color);
+        display: none;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
 
-        .btn-add-toggle:active {
-            background-color: #1b5e20;
-        }
+    .edit-section.visible {
+        display: block;
+    }
 
-        .edit-section {
-            width: 100%;
-            margin-top: 12px;
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 14px;
-            box-sizing: border-box;
-            border: 1px solid var(--border-color);
-            display: none; /* Nascosto di default */
-        }
+    .edit-section h3 {
+        margin: 0 0 10px 0;
+        font-size: 0.88rem;
+        color: #b39ddb;
+        font-weight: 500;
+        line-height: 1.35;
+    }
 
-        .edit-section.visible {
-            display: block;
-        }
+    .field-label {
+        font-size: 0.8rem;
+        color: var(--subtext-color);
+        margin: 6px 0 2px 2px;
+        display: block;
+    }
 
-        .edit-section h3 {
-            margin: 0 0 10px 0;
-            font-size: 0.88rem;
-            color: var(--accent-color);
-            font-weight: 500;
-            line-height: 1.35;
-        }
+    input[type="text"], input[type="time"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
 
-        .field-label {
-            font-size: 0.8rem;
-            color: var(--subtext-color);
-            margin: 6px 0 2px 2px;
-            display: block;
-        }
+    input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+    }
 
-        input[type="text"], input[type="time"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-color);
-            color: #fff;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
+    .poll-options-group {
+        margin: 10px 0 14px 0;
+        background: rgba(0,0,0,0.3);
+        padding: 10px;
+        border-radius: 12px;
+    }
 
-        /* Icona dell'orologio su Webkit */
-        input[type="time"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
-        }
+    .poll-option-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+    }
 
-        .poll-options-group {
-            margin: 10px 0 14px 0;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 8px;
-        }
+    .poll-option-row:last-child { margin-bottom: 0; }
 
-        .poll-option-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-        }
+    .radio-group {
+        display: flex;
+        gap: 12px;
+    }
 
-        .poll-option-row:last-child { margin-bottom: 0; }
+    .radio-group label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
 
-        .radio-group {
-            display: flex;
-            gap: 12px;
-        }
+    button.action-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background-color: var(--accent-color);
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
-        .radio-group label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        button.action-btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            background-color: #2e7d32;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-delete {
-            background-color: #e53935;
-            margin-top: 8px;
-        }
-
-        button.action-btn:active {
-            opacity: 0.8;
-        }
-    </style>
+    .btn-delete {
+        background-color: #e53935;
+        margin-top: 8px;
+    }
+</style>
 </head>
 <body>
-
+<div class="info-card">
     <div class="main-container">
         <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
 
         <h1>FLUO PARTY 03-10-26 🎉</h1>
+
+        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t1.png" class="header-img" alt="fluo">
         
         <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
 
@@ -348,6 +350,8 @@
 
         <div class="description">Ho preso qualche decorazione con luci UV, pennarelli colori neon accesi e scotch colorato. Ovviamente potete venire vestiti come cazzo volete, sappiate che però coi vestiti bianchi sarete MOLTO visibili. Se invece volete fare il giro sotto al tavolo di nascosto, potete vestirvi di nero.</div>
 
+        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t2.png" class="header-img" alt="fluo">
+        
         <div class="description">Non so il meteo come sarà, comunque saremo sicuramente al coperto sotto alla veranda mezza chiusa del garage. In caso di freddo ci sono varie stufe, ma sarà più probabile il contrario.</div>
 
         <div class="description">Potete portare tutte le morose o fidanzati che avete, se volete anche bambini, sappiate però che ci sarà musica a volume medio-alto con le casse grandi (aggiungeteli nella lista come una voce a parte).</div>
@@ -355,6 +359,9 @@
         <div class="description">Per chi vuole ci sono carte, giochi da tavolo, beerpong goa (grazie al gioco di luci e colori) e il nano che fa tatuaggi gratis se lo convincete.</div>
 
         <div class="description">Ultima nota e poi vi lascio votare, per chi non è mai venuto, c'è parcheggio in abbondanza quindi potete pure parcheggiare una decina di auto dentro il giardino e tutte le altre appena fuori sul campo.</div>
+        
+        <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/t3.png" class="header-img" alt="fluo">
+</div>
 
         <!-- Lista Partecipanti -->
         <div class="list-container">
