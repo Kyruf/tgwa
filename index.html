@@ -622,8 +622,11 @@
                 
                 // Cliccando sulla card si seleziona e apre il tasto modifica
                 card.onclick = (e) => {
-                    document.querySelectorAll('.guest-card').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
+                const isSelected = card.classList.contains('selected');
+                document.querySelectorAll('.guest-card').forEach(c => c.classList.remove('selected'));
+                    if (!isSelected) {
+                        card.classList.add('selected');
+                    }
                 };
 
                 card.innerHTML = `
