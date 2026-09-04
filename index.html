@@ -10,6 +10,7 @@
     <!-- SDK Firebase Compatibili per HTML statico -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 
 <style>
     :root {
@@ -455,6 +456,12 @@
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+
+        // Autentica l'utente in background in modo trasparente
+firebase.auth().signInAnonymously().catch((error) => {
+    console.error("Errore autenticazione anonima:", error);
+});
+
 
         let cachedGuests = {};
 
