@@ -19,6 +19,10 @@
             --accent-color: #8774e1;
             --subtext-color: #aaaaaa;
             --border-color: #2a2a2a;
+            --green-color: #4caf50;
+            --maybe-bg: #38300b;
+            --maybe-border: #fbc02d;
+            --maybe-text: #fff176;
         }
 
         /* Previene lo scorrimento orizzontale su tutti i dispositivi */
@@ -92,21 +96,35 @@
             border-bottom: 1px solid var(--border-color);
             font-weight: 700;
             font-size: 0.95rem;
-            color: var(--accent-color);
+            color: var(--text-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .count-green {
+            color: var(--green-color);
+            font-weight: bold;
+        }
+
         .guest-card {
-            padding: 12px 0;
+            padding: 12px 10px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             gap: 6px;
+            border-radius: 8px;
+            margin: 6px 0;
+            transition: background-color 0.3s ease;
         }
 
         .guest-card:last-child { border-bottom: none; }
+
+        /* Stile speciale per lo stato "FORSE" (Giallo) */
+        .guest-card.maybe {
+            background-color: var(--maybe-bg);
+            border: 1px solid var(--maybe-border);
+        }
 
         .guest-header {
             display: flex;
@@ -123,6 +141,11 @@
             border-radius: 12px;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+
+        .maybe .time-badge {
+            background-color: rgba(251, 192, 45, 0.2);
+            color: var(--maybe-text);
         }
 
         .options-badges {
@@ -150,10 +173,20 @@
             color: #e57373;
         }
 
+        .tag.maybe-tag {
+            background-color: rgba(251, 192, 45, 0.2);
+            color: var(--maybe-text);
+            font-weight: bold;
+        }
+
         .guest-note {
             font-size: 0.85rem;
             color: var(--subtext-color);
             font-style: italic;
+        }
+
+        .maybe .guest-note {
+            color: #fff9c4;
         }
 
         .edit-section {
@@ -168,8 +201,10 @@
 
         .edit-section h3 {
             margin: 0 0 10px 0;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             color: var(--accent-color);
+            font-weight: 500;
+            line-height: 1.35;
         }
 
         .field-label {
@@ -273,8 +308,8 @@
         <!-- Lista Partecipanti -->
         <div class="list-container">
             <div class="guest-count-header">
-                <span>Numero partecipanti:</span>
-                <span id="guest-count">0</span>
+                <span>Partecipanti:</span>
+                <span id="guest-count" class="count-green">0 confermati</span>
             </div>
             <div id="guest-list">
                 <div style="text-align:center; color:#aaa; padding:10px;">Caricamento partecipanti...</div>
@@ -283,7 +318,9 @@
 
         <!-- Modulo di registrazione / modifica -->
         <div class="edit-section">
-            <h3>Aggiorna le tue info</h3>
+            <h3>Per modificare/cancellare la vostra voce, scrivete il vostro nome!! Controllate bene prima di modificare, 2 modifiche ogni 24 ore.</h3>
+            <h3>Si lo so che potete modificare le altre voci, l'ho messa apposta per le morose, se verrete cancellati la colpa ricadrà tutta su Salvatore Ceraudo.</h3>
+            
             <input type="text" id="name-input" placeholder="Il tuo nome">
             
             <span class="field-label">Orario di arrivo (dalle 17:00 alle 01:59):</span>
@@ -292,6 +329,14 @@
             <input type="text" id="note-input" placeholder="Nota (es. intolleranze, astemio, vegano, celiaco)">
 
             <div class="poll-options-group">
+                <div class="poll-option-row">
+                    <span>Presenza:</span>
+                    <div class="radio-group">
+                        <label><input type="radio" name="presence" value="Si" checked> Confermato</label>
+                        <label><input type="radio" name="presence" value="Forse"> FORSE</label>
+                    </div>
+                </div>
+
                 <div class="poll-option-row">
                     <span>Aperitivo:</span>
                     <div class="radio-group">
@@ -412,11 +457,13 @@
 
             if (!checkRateLimit()) return;
 
+            const presence = getRadioValue('presence');
             const ape = getRadioValue('ape');
             const cena = getRadioValue('cena');
             const alcol = getRadioValue('alcol');
 
             database.ref('guests/' + name).set({
+                presence: presence,
                 time: time || 'Da definire',
                 note: note || '',
                 ape: ape,
@@ -453,24 +500,34 @@
             const data = snapshot.val();
 
             if (!data) {
-                countSpan.innerText = '0';
+                countSpan.innerText = '0 confermati';
                 listContainer.innerHTML = '<div style="text-align:center; color:#aaa; padding:10px;">Nessun partecipante ancora registrato.</div>';
                 return;
             }
 
-            const guestNames = Object.keys(data);
-            countSpan.innerText = guestNames.length;
+            let confirmedCount = 0;
+            let maybeCount = 0;
 
             for (let name in data) {
                 const guest = data[name];
+                const isMaybe = guest.presence === 'Forse';
+
+                if (isMaybe) {
+                    maybeCount++;
+                } else {
+                    confirmedCount++;
+                }
+
                 const card = document.createElement('div');
-                card.className = 'guest-card';
+                card.className = `guest-card ${isMaybe ? 'maybe' : ''}`;
+                
                 card.innerHTML = `
                     <div class="guest-header">
-                        <span class="guest-name">${name}</span>
+                        <span class="guest-name">${name} ${isMaybe ? '❓' : ''}</span>
                         <span class="time-badge">${guest.time}</span>
                     </div>
                     <div class="options-badges">
+                        ${isMaybe ? '<span class="tag maybe-tag">Presenza: FORSE</span>' : ''}
                         <span class="tag ${guest.ape === 'Si' ? 'yes' : 'no'}">Ape: ${guest.ape || 'No'}</span>
                         <span class="tag ${guest.cena === 'Si' ? 'yes' : 'no'}">Cena: ${guest.cena || 'No'}</span>
                         <span class="tag ${guest.alcol === 'Si' ? 'yes' : 'no'}">Alcol: ${guest.alcol || 'No'}</span>
@@ -478,6 +535,13 @@
                     ${guest.note ? `<div class="guest-note">"${guest.note}"</div>` : ''}
                 `;
                 listContainer.appendChild(card);
+            }
+
+            // Aggiorna contatore
+            if (maybeCount > 0) {
+                countSpan.innerText = `${confirmedCount} confermati, ${maybeCount} forse`;
+            } else {
+                countSpan.innerText = `${confirmedCount} confermati`;
             }
         });
     </script>
