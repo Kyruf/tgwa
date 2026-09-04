@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Festa di Compleanno</title>
+    <title>FLUO PARTY 03-10-26</title>
     <!-- SDK Telegram Web App -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
@@ -53,7 +53,7 @@
             color: var(--subtext-color);
             font-size: 0.9rem;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             line-height: 1.4;
         }
 
@@ -65,6 +65,7 @@
             padding: 8px 16px;
             box-sizing: border-box;
             border: 1px solid var(--border-color);
+            margin-top: 10px;
         }
 
         .guest-card {
@@ -72,7 +73,7 @@
             border-bottom: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .guest-card:last-child { border-bottom: none; }
@@ -92,6 +93,31 @@
             border-radius: 12px;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+
+        .options-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background-color: #2a2a2a;
+            color: #ccc;
+        }
+
+        .tag.yes {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #81c784;
+        }
+
+        .tag.no {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #e57373;
         }
 
         .guest-note {
@@ -117,7 +143,7 @@
             color: var(--accent-color);
         }
 
-        input {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 8px;
@@ -126,6 +152,35 @@
             background-color: var(--bg-color);
             color: #fff;
             box-sizing: border-box;
+        }
+
+        .poll-options-group {
+            margin: 10px 0 14px 0;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .poll-option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .poll-option-row:last-child { margin-bottom: 0; }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .radio-group label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         button {
@@ -139,6 +194,11 @@
             cursor: pointer;
         }
 
+        .btn-delete {
+            background-color: #e53935;
+            margin-top: 8px;
+        }
+
         button:active {
             opacity: 0.8;
         }
@@ -146,20 +206,65 @@
 </head>
 <body>
 
-    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=300" class="header-img" alt="Compleanno">
-    <h1>Festa di Compleanno! 🎉</h1>
-    <div class="description">Inserisci il tuo orario di arrivo e un'eventuale nota per festeggiare insieme.</div>
+    <img src="https://raw.githubusercontent.com/Kyruf/tgwa/main/header.png" class="header-img" alt="fluo">
+    <h1>FLUO PARTY 03-10-26 🎉</h1>
+    
+    <div class="description">OE OEE!! Ciao amici miei, avrei voluto invitare molte più persone, ma poi diventerebbe un problema cucinare per tutti, quindi la lista che vedete qui sotto è la crème de la crème, l'elite delle mie amicizie, i più grandi pezzi di merda che io abbia mai conosciuto (in senso buono). Se vi ho invitati da me è perché ci tengo che veniate, non serve che portiate niente. Ci troviamo dalle 17 in poi fino all'1-2 circa, poi vado a dormire 😴😴.</div>
 
+    <div class="description">Ovviamente sarà incluso un aperitivo (penso spritz e cocktail, da decidere assieme) con spuntino (bo tipo pizze in teglia, tramezzini col tonno, torte salate, crostata), il tutto mentre gli ossetti (ribs con senape, spezie e salsa barbecue) cuociono per 3 ore circa. Prenderò anche polenta, pancetta, salsicce, wurstel. Infine sarà servito un tiramisù senza lattosio, con cioccolato bianco e savoiardi alla fragola.</div>
+
+    <div class="description">Forse ci saranno verdure (molto buone, dell'orto), ma non cucinate da me (non ne sono in grado), eventualmente se proprio avete bisogno di mangiarle scrivetelo nelle note qui sotto. Se volete potete addirittura cucinarle voi senza problemi. Scrivete anche eventuali intolleranze o allergie, se non bevete alcolici perché così so quante bevande analcoliche prendere. Scrivete nelle note QUALSIASI preferenza e un orario di arrivo indicativo. Potrete sempre modificarlo dopo (ma per favore entro il 1/10 (primo di ottobre) perché la spesa la farò il 2.</div>
+
+    <div class="description">Ho preso qualche decorazione con luci UV, pennarelli colori neon accesi e scotch colorato. Ovviamente potete venire vestiti come cazzo volete, sappiate che però coi vestiti bianchi sarete MOLTO visibili. Se invece volete fare il giro sotto al tavolo di nascosto, potete vestirvi di nero.</div>
+
+    <div class="description">Non so il meteo come sarà, comunque saremo sicuramente al coperto sotto alla veranda mezza chiusa del garage. In caso di freddo ci sono varie stufe, ma sarà più probabile il contrario.</div>
+
+    <div class="description">Potete portare tutte le morose o fidanzati che avete, se volete anche bambini, sappiate però che ci sarà musica a volume medio-alto con le casse grandi (aggiungeteli nella lista come una voce a parte).</div>
+
+    <div class="description">Per chi vuole ci sono carte, giochi da tavolo, beerpong goa (grazie al gioco di luci e colori) e il nano che fa tatuaggi gratis se lo convincete.</div>
+
+    <div class="description">Ultima nota e poi vi lascio votare, per chi non è mai venuto, c'è parcheggio in abbondanza quindi potete pure parcheggiare una decina di auto dentro il giardino e tutte le altre appena fuori sul campo.</div>
+
+    <!-- Lista Partecipanti -->
     <div class="list-container" id="guest-list">
         <div style="text-align:center; color:#aaa; padding:10px;">Caricamento partecipanti...</div>
     </div>
 
+    <!-- Modulo di registrazione / modifica -->
     <div class="edit-section">
         <h3>Aggiorna le tue info</h3>
         <input type="text" id="name-input" placeholder="Il tuo nome">
-        <input type="text" id="time-input" placeholder="Orario di arrivo (es. 20:30)">
-        <input type="text" id="note-input" placeholder="Nota (es. Porto le bibite)">
+        <input type="text" id="time-input" placeholder="Orario di arrivo (es. 17.00, 20.00, dopo cena)">
+        <input type="text" id="note-input" placeholder="Nota (es. intolleranze, astemio, vegano, celiaco)">
+
+        <div class="poll-options-group">
+            <div class="poll-option-row">
+                <span>Aperitivo:</span>
+                <div class="radio-group">
+                    <label><input type="radio" name="ape" value="Si" checked> Sì</label>
+                    <label><input type="radio" name="ape" value="No"> No</label>
+                </div>
+            </div>
+
+            <div class="poll-option-row">
+                <span>Cena:</span>
+                <div class="radio-group">
+                    <label><input type="radio" name="cena" value="Si" checked> Sì</label>
+                    <label><input type="radio" name="cena" value="No"> No</label>
+                </div>
+            </div>
+
+            <div class="poll-option-row">
+                <span>Bevande Alcoliche:</span>
+                <div class="radio-group">
+                    <label><input type="radio" name="alcol" value="Si" checked> Sì</label>
+                    <label><input type="radio" name="alcol" value="No"> No</label>
+                </div>
+            </div>
+        </div>
+
         <button onclick="saveDetails()">Salva / Aggiorna</button>
+        <button onclick="deleteDetails()" class="btn-delete">Rimuoviti dalla lista</button>
     </div>
 
     <script>
@@ -180,34 +285,85 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Autocompila con il nome utente di Telegram se presente
+        // Autocompila con il nome utente di Telegram
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             document.getElementById('name-input').value = tg.initDataUnsafe.user.first_name;
         }
 
+        // Timer di sicurezza (max 2 modifiche ogni 24 ore)
+        function checkRateLimit() {
+            const NOW = Date.now();
+            const DAY = 24 * 60 * 60 * 1000;
+            
+            let history = JSON.parse(localStorage.getItem('edit_history') || '[]');
+            history = history.filter(timestamp => NOW - timestamp < DAY);
+            
+            if (history.length >= 2) {
+                const remainingHours = Math.ceil((DAY - (NOW - history[0])) / (1000 * 60 * 60));
+                alert(`Hai raggiunto il limite di 2 modifiche. Riprova tra circa ${remainingHours} ore!`);
+                return false;
+            }
+            
+            history.push(NOW);
+            localStorage.setItem('edit_history', JSON.stringify(history));
+            return true;
+        }
+
+        function getRadioValue(name) {
+            const radios = document.getElementsByName(name);
+            for (let radio of radios) {
+                if (radio.checked) return radio.value;
+            }
+            return "No";
+        }
+
+        // Salva o aggiorna i dati sul Realtime Database
         function saveDetails() {
             const name = document.getElementById('name-input').value.trim();
             const time = document.getElementById('time-input').value.trim();
             const note = document.getElementById('note-input').value.trim();
+            
+            const ape = getRadioValue('ape');
+            const cena = getRadioValue('cena');
+            const alcol = getRadioValue('alcol');
 
             if (!name) {
                 alert("Inserisci almeno il tuo nome!");
                 return;
             }
 
+            if (!checkRateLimit()) return;
+
             database.ref('guests/' + name).set({
                 time: time || 'Da definire',
-                note: note || ''
+                note: note || '',
+                ape: ape,
+                cena: cena,
+                alcol: alcol
             }).then(() => {
-                if (tg.showAlert) {
-                    tg.showAlert("Dati salvati con successo!");
-                } else {
-                    alert("Dati salvati con successo!");
-                }
+                alert("Dati salvati con successo!");
             });
         }
 
-        // Sincronizzazione in tempo reale con Firebase
+        // Rimuove la voce dalla lista
+        function deleteDetails() {
+            const name = document.getElementById('name-input').value.trim();
+
+            if (!name) {
+                alert("Inserisci il nome della voce che vuoi rimuovere!");
+                return;
+            }
+
+            if (!checkRateLimit()) return;
+
+            database.ref('guests/' + name).remove().then(() => {
+                alert("Rimosso dalla lista!");
+                document.getElementById('time-input').value = '';
+                document.getElementById('note-input').value = '';
+            });
+        }
+
+        // Sincronizzazione lista partecipanti live
         database.ref('guests').on('value', (snapshot) => {
             const listContainer = document.getElementById('guest-list');
             listContainer.innerHTML = '';
@@ -226,6 +382,11 @@
                     <div class="guest-header">
                         <span class="guest-name">${name}</span>
                         <span class="time-badge">${guest.time}</span>
+                    </div>
+                    <div class="options-badges">
+                        <span class="tag ${guest.ape === 'Si' ? 'yes' : 'no'}">Ape: ${guest.ape || 'No'}</span>
+                        <span class="tag ${guest.cena === 'Si' ? 'yes' : 'no'}">Cena: ${guest.cena || 'No'}</span>
+                        <span class="tag ${guest.alcol === 'Si' ? 'yes' : 'no'}">Alcol: ${guest.alcol || 'No'}</span>
                     </div>
                     ${guest.note ? `<div class="guest-note">"${guest.note}"</div>` : ''}
                 `;
