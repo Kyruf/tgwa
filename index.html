@@ -145,6 +145,28 @@
         background-color: rgba(255, 255, 255, 0.05);
     }
 
+    .stats-box {
+    display: flex;
+    justify-content: space-around;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 15px 0;
+    color: #fff;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+}
+
+.stat-item strong {
+    color: #ff9800;
+    font-size: 1.1rem;
+}
+    
     .guest-card:hover {
         background-color: rgba(255, 255, 255, 0.12);
     }
@@ -380,6 +402,26 @@
                 <span>Partecipanti:</span>
                 <span id="guest-count" class="count-green">0 confermati</span>
             </div>
+
+        <!-- Contatore Riassuntivo -->
+<div id="stats-container" class="stats-box">
+    <div class="stat-item">
+        <span class="stat-icon">🍹</span>
+        <span class="stat-label">Aperitivini:</span>
+        <strong id="count-ape">0</strong>
+    </div>
+    <div class="stat-item">
+        <span class="stat-icon">🍕</span>
+        <span class="stat-label">Cenatori:</span>
+        <strong id="count-cena">0</strong>
+    </div>
+    <div class="stat-item">
+        <span class="stat-icon">🍻</span>
+        <span class="stat-label">Alcolizzati:</span>
+        <strong id="count-alcol">0</strong>
+    </div>
+</div>
+        
             <div id="guest-list">
                 <div style="text-align:center; color:#aaa; padding:10px;">Caricamento partecipanti...</div>
             </div>
@@ -629,7 +671,7 @@ firebase.auth().signInAnonymously().catch((error) => {
                 listContainer.innerHTML = '<div style="text-align:center; color:#aaa; padding:10px;">Nessun partecipante ancora registrato.</div>';
                 return;
             }
-
+            
             let confirmedCount = 0;
             let maybeCount = 0;
 
@@ -643,6 +685,37 @@ firebase.auth().signInAnonymously().catch((error) => {
                     confirmedCount++;
                 }
 
+                  // Funzione per aggiornare i contatori nella pagina
+function updateCounters(guestsData) {
+    let apeCount = 0;
+    let cenaCount = 0;
+    let alcolCount = 0;
+
+    // Cicla tutti gli invitati nel database
+    Object.values(guestsData).forEach(guest => {
+        // Conta solo chi ha confermato o chi non è escluso
+        if (guest.ape === "Si") apeCount++;
+        if (guest.cena === "Si") cenaCount++;
+        if (guest.alcol === "Si") alcolCount++;
+    });
+
+    // Aggiorna gli elementi nell'HTML
+    document.getElementById("count-ape").textContent = apeCount;
+    document.getElementById("count-cena").textContent = cenaCount;
+    document.getElementById("count-alcol").textContent = alcolCount;
+}
+
+// Esempio di integrazione nell'ascoltatore Firebase:
+database.ref("guests").on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+        // ... il tuo codice per mostrare la lista invitati ...
+        
+        // Chiamata per aggiornare i contatori
+        updateCounters(data);
+    }
+});
+                
                 const card = document.createElement('div');
                 card.className = `guest-card ${isMaybe ? 'maybe' : ''}`;
                 
