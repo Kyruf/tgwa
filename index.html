@@ -147,7 +147,10 @@
 
     .stats-box {
     display: flex;
+    flex-wrap: wrap; /* Permette di andare a capo se lo schermo è stretto */
     justify-content: space-around;
+    align-items: center;
+    gap: 10px;
     background-color: #2a2a2a;
     border-radius: 12px;
     padding: 12px;
@@ -158,10 +161,11 @@
 .stat-item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.95rem;
+    gap: 4px;
+    font-size: 0.85rem; /* Testo leggermente ridotto per schermi piccoli */
+    white-space: nowrap; /* Mantiene icona, testo e numero insieme */
 }
-
+    
 .stat-item strong {
     color: #ff9800;
     font-size: 1.1rem;
